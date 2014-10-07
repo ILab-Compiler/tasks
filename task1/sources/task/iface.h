@@ -36,21 +36,21 @@ namespace Task
         public:
             // ---- This interface is part of the task ---
             Unit();//< Constructor
-            Unit (const T& val)
+            Unit (const T& val);
             ~Unit();//< Destructor
 
             Unit *next();           // Get the next unit in list
-            void set_next (Unit *u) // Set u as the next unit in list
+            void set_next (Unit *u); // Set u as the next unit in list
             Unit *prev();           // Get the previous unit in list
-            void set_prev (Unit *u) // Set u as the previos unit in list
+            void set_prev (Unit *u); // Set u as the previos unit in list
             T& val();               // Get the reference to the unit's value
         private:
         // ---- Implementation routines ----
 
         // ---- Data involved in the implementation ----
             T data;
-            Unit *next;
-            Unit *prev;
+            Unit *next_u;
+            Unit *prev_u;
         };
 
         // ---- Public interface of DList ----
@@ -75,8 +75,8 @@ private:
         // ---- The internal implementation routines ----
 
         // ---- The data involved in the implementation ----
-        Unit* first;
-        Unit* last;
+        Unit* first_u;
+        Unit* last_u;
     };
 
     bool uTest( UnitTest *utest_p);
