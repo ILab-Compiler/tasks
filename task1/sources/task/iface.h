@@ -17,61 +17,113 @@ using namespace Utils;
 #    define DLIST_ASSERTD(cond) ASSERT_XD(cond, "DList", "")
 #endif
 
-/**
- * Namespace for the programming task
- */
+
 namespace Task
 {
-    //
-    // Doubly connected list
-    //
+
     template <class T> class DList
     {
     public:
-        //
-        // List unit
-        //
-        class Unit
-        {
-        public:
-            // ---- This interface is part of the task ---
-            Unit *next(); // Get the next unit in list
-            Unit *prev(); // Get the previous unit in list
-            T& val();     // Get the reference to the unit's value
-        private:
-        // ---- Implementation routines ----
-        
-            
-        // ---- Data involved in the implementation ----    
-         
-        };
 
-        // ---- Public interface of DList ----
-        DList(); //< Constructor
-        ~DList();//< Destructor
+        class		Unit;
         
-        void push_front (const T& val);       // Insert one unit with given value at front        
-        void pop_front();                     // Remove one unit at front of the list
-        void push_back (const T& val);        // Insert one unit with given value to back
-        void pop_back();                      // Remove one unit from the back of the list
-        Unit* insert (Unit* u, const T& val); // Insert one unit before the given one  
+        
+					DList(); 
+				   ~DList();
 
-        Unit* first(); // Get first unit
-        Unit* last();  // Get last unit
+        void		push_front (const T& val);
+        void		pop_front();
+        void		push_back (const T& val); 
+        void		pop_back();               
+        Unit*		insert (Unit* u, const T& val);
+
+        Unit*		first(); 
+        Unit*		last();  
         
-        Unit* erase (Unit* u); // Remove given unit from list, return next unit or null  
-        void clear();          // Remove all units
-        bool empty();          // Check if list is empty. Returns true if empty, false otherwise
-        unsigned size();       // Get the number of units in the list
-        void reverse();        // Reverse the order of units in the list
+        Unit*		erase (Unit* u);
+        void		clear();  
+        bool		empty();         
+        unsigned	size();      
+        void		reverse();
+//	Some extra nesessary features
+		void		dump(FILE* stream);
+		void		dump();
+		bool		ok();
+
 private:
-        // ---- The internal implementation routines ----
+        class		BeginUnit;
+		class		EndUnit;
+	
+		unsigned	__size;
+		BeginUnit	__rborder;
+		EndUnit		__lborder;
+		
+		bool		__is_in(const Unit* searched);
+		
         
-        // ---- The data involved in the implementation ----
        
     };
 
     bool uTest( UnitTest *utest_p);
+
+	template<class T>
+	class DList<T>::Unit
+	{
+	public:
+
+					Unit(const &T val);
+				   ~Unit();
+		Unit*		next();
+		Unit*		prev();
+		T&			val();
+			
+		void		 dump();
+		void		 dump(FILE* stream);
+		virtual bool ok();
+
+		void		set_next(Unit* setting, Unit* new_ptr);
+		void		set_prev(Unit* setting, Unit* new_ptr);
+	private:
+					Unit();
+		bool		__empty;
+		T*			__val;
+		Unit*		__prev;
+		Unit*		__next;
+	};
+
+	template<class T>
+	class DList<T>::BeginUnit: private Unit
+	{        
+	public:
+				
+		Unit*		next();
+					BeginUnit();
+				   ~BeginUnit();
+		virtual bool ok();
+
+		friend void DList<T>::set_next(Unit* setting, Unit* new_ptr);
+
+	private:
+		Unit const*	__prev;
+		Unit*		__next;
+	};
+
+	template<class T>
+	class DList<T>::EndUnit: private Unit
+	{        
+	public:
+				
+		Unit*		prev();
+					EndUnit();
+				   ~EndUnit();
+		virtual bool ok();
+
+		friend void DList<T>::set_prev(Unit* setting, Unit* new_ptr);
+
+	private:
+		Unit		__prev;
+		Unit const* __next;
+	};
 };
 
 // Since we have defined list as a template - we should implement the solution in a header
