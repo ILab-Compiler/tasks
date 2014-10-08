@@ -26,6 +26,8 @@ namespace Task
     public:
 
         class		Unit;
+		class		BeginUnit;
+		class		EndUnit;
         
         
 					DList(); 
@@ -39,7 +41,9 @@ namespace Task
 
         Unit*		first(); 
         Unit*		last();  
-        
+        void		set_next(Unit* setting, Unit* new_ptr);
+		void		set_prev(Unit* setting, Unit* new_ptr);
+
         Unit*		erase (Unit* u);
         void		clear();  
         bool		empty();         
@@ -51,12 +55,11 @@ namespace Task
 		bool		ok();
 
 private:
-        class		BeginUnit;
-		class		EndUnit;
+        
 	
 		unsigned	__size;
-		BeginUnit	__rborder;
-		EndUnit		__lborder;
+		BeginUnit	__lborder;
+		EndUnit		__rborder;
 		
 		bool		__is_in(const Unit* searched);
 		
@@ -71,8 +74,9 @@ private:
 	{
 	public:
 
-					Unit(const &T val);
-				   ~Unit();
+					Unit(const T& val);
+					Unit();
+					~Unit();
 		Unit*		next();
 		Unit*		prev();
 		T&			val();
@@ -81,10 +85,10 @@ private:
 		void		 dump(FILE* stream);
 		virtual bool ok();
 
-		void		set_next(Unit* setting, Unit* new_ptr);
-		void		set_prev(Unit* setting, Unit* new_ptr);
+		friend void		DList<T>::set_next(Unit* setting, Unit* new_ptr);
+		friend void		DList<T>::set_prev(Unit* setting, Unit* new_ptr);
 	private:
-					Unit();
+					
 		bool		__empty;
 		T*			__val;
 		Unit*		__prev;
@@ -95,7 +99,10 @@ private:
 	class DList<T>::BeginUnit: private Unit
 	{        
 	public:
-				
+		
+		friend		DList<T>::Unit::Unit();
+		friend		DList<T>::Unit::~Unit();
+
 		Unit*		next();
 					BeginUnit();
 				   ~BeginUnit();
@@ -112,7 +119,9 @@ private:
 	class DList<T>::EndUnit: private Unit
 	{        
 	public:
-				
+		
+		friend		DList<T>::Unit::Unit();
+		friend		DList<T>::Unit::~Unit();
 		Unit*		prev();
 					EndUnit();
 				   ~EndUnit();
@@ -121,7 +130,7 @@ private:
 		friend void DList<T>::set_prev(Unit* setting, Unit* new_ptr);
 
 	private:
-		Unit		__prev;
+		Unit*		__prev;
 		Unit const* __next;
 	};
 };
@@ -129,4 +138,5 @@ private:
 // Since we have defined list as a template - we should implement the solution in a header
 // But to keep interface clean we've separated the implementation into list_impl.h header
 #include "list_impl.h"
+#include "unit_impl.h"
 

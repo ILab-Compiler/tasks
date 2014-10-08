@@ -12,7 +12,7 @@ enum MESSAGE_ID
 	POSTCOND_SELF_CHECK_FAILED,
 	EMPTY_LIST,
 	LAST_ID
-}
+};
 
 const char* const msgs[] = 
 {

@@ -5,7 +5,6 @@
 
 #include "exception.h"
 #include "stdio.h"
-#include "iface.h"
 
 namespace Task
 {
@@ -19,7 +18,7 @@ namespace Task
 	{}
 	
 	template<class T>
-	DList<T>::Unit::Unit(const &T val):
+	DList<T>::Unit::Unit(const T& val):
 	Unit()
 	{
 		CALL(__val = new T(val), ARG_OBJ_COPY_FAIL);
@@ -29,7 +28,7 @@ namespace Task
 	}
 
 	template <class T>
-	DList<T>::?Unit::~Unit()
+	DList<T>::Unit::~Unit()
 	{
 		if (__val != NULL)
 		{
@@ -69,12 +68,14 @@ namespace Task
 	DList<T>::Unit::dump(FILE* stream)
 	{
 		assert(stream);
-		fprintf(stream, "Unit [%08x]"
-						"__empty = %s"
-						"__val  = [%08x]"
-						"__prev = [%08x]"
-						"__next = [%08x]",
+		fprintf(stream, "Unit [%08x]\n"
+						"Status %s\n"
+						"__empty = %s\n"
+						"__val  = [%08x]\n"
+						"__prev = [%08x]\n"
+						"__next = [%08x]\n",
 						(__empty)? "TRUE": "FALSE",
+						(ok())? "OK" : "BAD",
 						__val,
 						__prev,
 						__next);
@@ -128,7 +129,7 @@ namespace Task
 
 	template <class T>
 	typename DList<T>::Unit*
-	DList<T>::EndUnit::next()
+	DList<T>::EndUnit::prev()
 	{
 		return __prev;
 	}
@@ -139,8 +140,6 @@ namespace Task
 	{
 		if (__next == NULL)
 			return false;
-		if (__val == NULL)
-			return false;
 		return true;
 	}
 
@@ -149,8 +148,6 @@ namespace Task
 	DList<T>::EndUnit::ok()
 	{
 		if (__prev == NULL)
-			return false;
-		if (__val == NULL)
 			return false;
 		return true;
 	
