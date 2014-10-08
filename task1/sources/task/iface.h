@@ -133,10 +133,13 @@ private:
 		Unit*		__prev;
 		Unit const* __next;
 	};
+
+
 };
 
 // Since we have defined list as a template - we should implement the solution in a header
 // But to keep interface clean we've separated the implementation into list_impl.h header
-#include "list_impl.h"
-#include "unit_impl.h"
+
+	#include "list_impl.h"
+	#include "unit_impl.h"
 

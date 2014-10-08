@@ -11,7 +11,7 @@ namespace Task
         DList<int> list;
         list.push_back(5);
         list.push_back(10);
-        Unit *u = list.first();
+        Unit* u = list.first();
         
         UTEST_CHECK( utest_p, u);
         UTEST_CHECK( utest_p, list.size() == 2);

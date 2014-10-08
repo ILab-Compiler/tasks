@@ -76,9 +76,9 @@ namespace Task
 	}
 
 
-	template <class T>
-	typename DList<T>::Unit*
-	insert (typename DList<T>::Unit* u, const T& val)
+template <class T>
+typename DList<T>::Unit*
+insert(typename DList<T>::Unit* u, const T& val)
 	{
 		RT_ASSERT(this -> ok(), PRECOND_SELF_CHECK_FAILED);
 		RT_ASSERT(u != NULL, ARG_PTR_NULL);
@@ -102,23 +102,27 @@ namespace Task
 		return inserting;
 	}
 
-	template <class T>
-	void
-	DList<T>::push_back(const T& val)
-	{
-		DList<int>::Unit* needed_ptr = (DList<T>::Unit*)(&__rborder);
-		CALL(insert(__lborder.next(), val), "Inserting first element failed");
-	}
-
+	
 	template <class T>
 	void
 	DList<T>::push_front(const T& val)
 	{
-		DList<int>::Unit* needed_ptr = __lborder.next();
-		CALL(insert(__lborder.next(), val), "Inserting first element failed");
+		DList<int>::Unit* needed_ptr = (DList<T>::Unit*)(&__rborder);
+//		CALL(insert(__lborder.next(), val), "Inserting first element failed");
+		insert(needed_ptr, val);
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
 
-	
+	template <class T>
+	void
+	DList<T>::push_back(const T& val)
+	{
+		DList<int>::Unit* needed_ptr = __lborder.next();
+//		CALL(insert(__lborder.next(), val), "Inserting first element failed");
+		insert(needed_ptr, val);
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	}
+
 
 	template <class T>
 	typename DList<T>::Unit*
