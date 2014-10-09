@@ -43,12 +43,12 @@ namespace Task
 	template <class T>
 	DList<T>::~DList()
 	{
-		DList<T>::Unit* deleting = __lborder.next();
+		Unit* deleting = __lborder.next();
 		assert(deleting);
 
 		while (deleting != (DList<T>::Unit*)&__rborder)
 		{
-			DList<T>::Unit* new_deleting = deleting -> next();
+			Unit* new_deleting = deleting -> next();
 			assert(new_deleting);
 			delete deleting;
 			deleting = new_deleting;
@@ -61,7 +61,7 @@ namespace Task
 	bool
 	DList<T>::__is_in(const Unit* searched)
 	{
-		DList<T>::Unit* checked = __lborder.next();
+		Unit* checked = __lborder.next();
 		assert(checked);
 
 		for (unsigned i = 0; i < __size; ++i)
@@ -78,19 +78,19 @@ namespace Task
 
 template <class T>
 typename DList<T>::Unit*
-insert(typename DList<T>::Unit* u, const T& val)
+DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 	{
 		RT_ASSERT(this -> ok(), PRECOND_SELF_CHECK_FAILED);
 		RT_ASSERT(u != NULL, ARG_PTR_NULL);
 		RT_ASSERT(__is_in(u), NO_UNIT_IN_LIST);
 
-		DList<T>::Unit* after = u -> prev;
-		DList<T>::Unit* before = u;
+		Unit* after = u -> prev();
+		Unit* before = u;
 
 		assert(after -> next() == before);
 		assert(before -> prev() == after);
 
-		DList<T>::Unit* inserting = new Unit(val);
+		Unit* inserting = new Unit(val);
 		
 		CALL(set_next(after,  inserting), "Setting __next pointer failed");
 		CALL(set_prev(before, inserting), "Setting __prev pointed failed");
@@ -107,7 +107,7 @@ insert(typename DList<T>::Unit* u, const T& val)
 	void
 	DList<T>::push_front(const T& val)
 	{
-		DList<int>::Unit* needed_ptr = (DList<T>::Unit*)(&__rborder);
+		DList<T>::Unit* needed_ptr = (DList<T>::Unit*)(&__rborder);
 //		CALL(insert(__lborder.next(), val), "Inserting first element failed");
 		insert(needed_ptr, val);
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -117,7 +117,7 @@ insert(typename DList<T>::Unit* u, const T& val)
 	void
 	DList<T>::push_back(const T& val)
 	{
-		DList<int>::Unit* needed_ptr = __lborder.next();
+		DList<T>::Unit* needed_ptr = __lborder.next();
 //		CALL(insert(__lborder.next(), val), "Inserting first element failed");
 		insert(needed_ptr, val);
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

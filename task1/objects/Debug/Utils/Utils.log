@@ -1,5 +1,7 @@
-﻿Сборка начата 08.10.2014 23:12:15.
+﻿Сборка начата 10.10.2014 2:29:22.
      1>Проект "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\sources\Utils\Utils.vcxproj" в узле 2 (целевые объекты Rebuild).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppClean.targets(76,5): warning : Процесс не может получить доступ к файлу "c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\objects\debug\utils\utils.lib", так как этот файл используется другим процессом.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppClean.targets(76,5): warning : Процесс не может получить доступ к файлу "c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\objects\debug\utils\utils.lib", так как этот файл используется другим процессом.
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /Od /Oy- /D _DEBUG /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\Utils\\" /Fd"C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\Utils\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt conf.cpp conf_utest.cpp list_utest.cpp log.cpp log_utest.cpp mem_mgr.cpp mem_pool.cpp mem_utest.cpp utest.cpp utils.cpp utils_utest.cpp
          conf.cpp
@@ -33,4 +35,4 @@
 
 Сборка успешно завершена.
 
-Затраченное время: 00:00:06.09
+Затраченное время: 00:00:09.83

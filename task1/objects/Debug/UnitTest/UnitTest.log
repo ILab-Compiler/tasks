@@ -1,5 +1,5 @@
-﻿Сборка начата 08.10.2014 23:47:30.
-     1>Проект "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\sources\UnitTest\UnitTest.vcxproj" в узле 2 (целевые объекты Build).
+﻿Сборка начата 10.10.2014 2:29:34.
+     1>Проект "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\sources\UnitTest\UnitTest.vcxproj" в узле 2 (целевые объекты Rebuild).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\UnitTest\\" /Fd"C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\UnitTest\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
          main.cpp
@@ -8,10 +8,9 @@
          "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\objects\Debug\Utils\Utils.lib"
          "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\objects\Debug\task\task.lib"
      1>task.lib(impl.obj) : warning LNK4075: не учитывается "/EDITANDCONTINUE" из-за спецификации "/SAFESEH"
-     1>task.lib(impl.obj) : error LNK2019: ссылка на неразрешенный внешний символ "public: class Task::DList<int>::Unit * __thiscall Task::DList<int>::insert(class Task::DList<int>::Unit *,int const &)" (?insert@?$DList@H@Task@@QAEPAVUnit@12@PAV312@ABH@Z) в функции "public: void __thiscall Task::DList<int>::push_back(int const &)" (?push_back@?$DList@H@Task@@QAEXABH@Z)
-     1>C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\bin\utestd.exe : fatal error LNK1120: неразрешенных внешних элементов: 1
-     1>Сборка проекта "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\sources\UnitTest\UnitTest.vcxproj" завершена (целевые объекты Build) с ошибкой.
+         UnitTest.vcxproj -> C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\bin\utestd.exe
+     1>Сборка проекта "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\sources\UnitTest\UnitTest.vcxproj" завершена (целевые объекты Rebuild).
 
-Ошибка сборки.
+Сборка успешно завершена.
 
-Затраченное время: 00:00:00.83
+Затраченное время: 00:00:01.84
