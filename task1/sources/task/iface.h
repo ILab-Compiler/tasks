@@ -63,8 +63,8 @@ namespace Task
         void pop_back();                      // Remove one unit from the back of the list
         Unit* insert (Unit* u, const T& val); // Insert one unit before the given one
 
-        Unit* first(); // Get first unit
-        Unit* last();  // Get last unit
+        Unit* first(); // Get first unit,will return Null  if List is empty
+        Unit* last();  // Get last unit,will return Null  if List is empty
 
         Unit* erase (Unit* u); // Remove given unit from list, return next unit or null
         void clear();          // Remove all units
@@ -77,6 +77,7 @@ private:
         // ---- The data involved in the implementation ----
         Unit* first_u;
         Unit* last_u;
+        unsigned int count; //count of items
     };
 
     bool uTest( UnitTest *utest_p);
