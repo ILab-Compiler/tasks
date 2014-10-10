@@ -82,6 +82,7 @@
   <ItemGroup>
     <ClCompile Include="exception.cpp" />
     <ClCompile Include="impl.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utils\Utils.vcxproj">

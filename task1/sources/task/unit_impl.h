@@ -74,6 +74,7 @@ namespace Task
 						"__val  = [%08x]\n"
 						"__prev = [%08x]\n"
 						"__next = [%08x]\n",
+						this,
 						(__empty)? "TRUE": "FALSE",
 						(ok())? "OK" : "BAD",
 						__val,
@@ -119,7 +120,7 @@ namespace Task
 	template <class T>
 	DList<T>::EndUnit::~EndUnit()
 	{};
-
+/*
 	template <class T>
 	typename DList<T>::Unit*
 	DList<T>::BeginUnit::next()
@@ -133,12 +134,12 @@ namespace Task
 	{
 		return __prev;
 	}
-
+*/
 	template <class T>
 	bool
 	DList<T>::BeginUnit::ok()
 	{
-		if (__next == NULL)
+		if (next() == NULL)
 			return false;
 		return true;
 	}
@@ -147,7 +148,7 @@ namespace Task
 	bool
 	DList<T>::EndUnit::ok()
 	{
-		if (__prev == NULL)
+		if (prev() == NULL)
 			return false;
 		return true;
 	

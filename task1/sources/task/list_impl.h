@@ -33,20 +33,27 @@ namespace Task
 
 	template <class T>
 	DList<T>::DList():
-	__size(0)
+	__size(0),
+	__lborder(NULL),
+	__rborder(NULL)
 	{
-		set_next((typename DList<T>::Unit*)&__lborder, (typename DList<T>::Unit*)&__rborder);
-		set_prev((typename DList<T>::Unit*)&__rborder, (typename DList<T>::Unit*)&__lborder);
-		assert(this -> ok());
+		__lborder = new BeginUnit();
+		__rborder = new EndUnit();
+		assert(__lborder);
+		assert(__rborder);
+
+		set_next((typename DList<T>::Unit*)__lborder, (typename DList<T>::Unit*)__rborder);
+		set_prev((typename DList<T>::Unit*)__rborder, (typename DList<T>::Unit*)__lborder);
+//		assert(this -> ok());
 	}
 
 	template <class T>
 	DList<T>::~DList()
 	{
-		Unit* deleting = __lborder.next();
+		Unit* deleting = __lborder -> next();
 		assert(deleting);
 
-		while (deleting != (DList<T>::Unit*)&__rborder)
+		while (deleting != (DList<T>::Unit*)__rborder)
 		{
 			Unit* new_deleting = deleting -> next();
 			assert(new_deleting);
@@ -54,6 +61,8 @@ namespace Task
 			deleting = new_deleting;
 		}
 
+		delete __rborder;
+		delete __lborder;
 		__size = 0;
 	}
 
@@ -61,7 +70,7 @@ namespace Task
 	bool
 	DList<T>::__is_in(const Unit* searched)
 	{
-		Unit* checked = __lborder.next();
+		Unit* checked = __lborder -> next();
 		assert(checked);
 
 		for (unsigned i = 0; i < __size; ++i)
@@ -71,7 +80,7 @@ namespace Task
 			if (checked == searched)
 				return true;
 		}
-
+		if (checked == searched) return true;		//__rborder case
 		return false;
 	}
 
@@ -107,8 +116,8 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 	void
 	DList<T>::push_front(const T& val)
 	{
-		DList<T>::Unit* needed_ptr = (DList<T>::Unit*)(&__rborder);
-//		CALL(insert(__lborder.next(), val), "Inserting first element failed");
+		DList<T>::Unit* needed_ptr = (DList<T>::Unit*)(__rborder);
+//		CALL(insert(__lborder -> next(), val), "Inserting first element failed");
 		insert(needed_ptr, val);
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
@@ -117,8 +126,8 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 	void
 	DList<T>::push_back(const T& val)
 	{
-		DList<T>::Unit* needed_ptr = __lborder.next();
-//		CALL(insert(__lborder.next(), val), "Inserting first element failed");
+		DList<T>::Unit* needed_ptr = __lborder -> next();
+//		CALL(insert(__lborder -> next(), val), "Inserting first element failed");
 		insert(needed_ptr, val);
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}
@@ -138,23 +147,23 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 		__size--;
 
 		delete u;
-		return (next_unit == (DList<T>::Unit*)&__rborder)? NULL: next_unit;
+		return (next_unit == (DList<T>::Unit*)__rborder)? NULL: next_unit;
 	}
 
 	template <class T>
 	void
 	DList<T>::pop_front()
 	{
-		DList<T>::Unit* erasing = __lborder.next();
-		RT_ASSERT(erasing != (DList<T>::Unit*)&__rborder, EMPTY_LIST);
-		CALL(erase(__lborder.next()), "Failed to erase first element");
+		DList<T>::Unit* erasing = __lborder -> next();
+		RT_ASSERT(erasing != (DList<T>::Unit*)__rborder, EMPTY_LIST);
+		CALL(erase(__lborder -> next()), "Failed to erase first element");
 	}
 
 	template <class T>
 	void
 	DList<T>::pop_back()
 	{
-		DList<T>::Unit* erasing = __rborder.prev();
+		DList<T>::Unit* erasing = __rborder -> prev();
 		RT_ASSERT(erasing != __lborder, EMPTY_LIST);
 		CALL(erase(erasing), "Failed to erase last element");
 	}
@@ -164,7 +173,7 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 	DList<T>::first()
 	{
 		RT_ASSERT(ok(), PRECOND_SELF_CHECK_FAILED);
-		if (__size > 0) return __lborder.next();
+		if (__size > 0) return __lborder -> next();
 		return NULL;
 	}
 
@@ -173,7 +182,7 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 	DList<T>::last()
 	{
 		RT_ASSERT(ok(), PRECOND_SELF_CHECK_FAILED);
-		if (__size > 0) return __rborder.prev();
+		if (__size > 0) return __rborder -> prev();
 		return NULL;
 	}
 
@@ -189,7 +198,7 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 	bool
 	DList<T>::empty()
 	{
-		RT_ASSERT(ok(), PRECOND_SELF_CHECK_FAILED);
+	//	RT_ASSERT(ok(), PRECOND_SELF_CHECK_FAILED);
 		return (__size == 0)? true: false;
 	}
 
@@ -197,7 +206,7 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 	unsigned
 	DList<T>::size()
 	{
-		RT_ASSERT(ok(), PRECOND_SELF_CHECK_FAILED);
+	//	RT_ASSERT(ok(), PRECOND_SELF_CHECK_FAILED);
 		return __size;
 	}
 
@@ -211,11 +220,11 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 		if (__size == 0)
 			return;
 
-		temp = __lborder.next();
-		CALL(set_next((DList<T>::Unit*)&__lborder, __rborder.prev()),	"Failed setting pointers");
-		CALL(set_prev((DList<T>::Unit*)&__rborder, temp),					"Failed setting pointers");
+		temp = __lborder -> next();
+		CALL(set_next((DList<T>::Unit*)__lborder, __rborder -> prev()),	"Failed setting pointers");
+		CALL(set_prev((DList<T>::Unit*)__rborder, temp),					"Failed setting pointers");
 		
-		DList<T>::Unit* changing = (DList<T>::Unit*)&__lborder;
+		DList<T>::Unit* changing = (DList<T>::Unit*)__lborder;
 
 		for (unsigned i = 0; i < size(); ++i)
 		{
@@ -240,13 +249,16 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 						"Right border [%08x]\n"
 						"Calling units dump\n |\n |\n",
 						this,
-						(ok()):"OK":"BAD");
-		DList<T>::Unit* printing = __lborder.next();
-		for (int i = 0; i < size; ++i)
+						(ok())?"OK":"BAD",
+						__size,
+						__lborder,
+						__rborder);
+		DList<T>::Unit* printing = __lborder -> next();
+		for (unsigned i = 0; i < __size; ++i)
 		{
 			assert(printing);
 			printing -> dump(stream);
-			fprintf("\n |\n |\n");
+			fprintf(stream, "\n |\n |\n");
 			printing = printing -> next();
 		}
 		fprintf(stream, "List dump finished\n");
@@ -264,16 +276,15 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 	bool
 	DList<T>::ok()
 	{
-		if (__lborder.next() == NULL) return false;
-		if (__rborder.prev() == NULL) return false;
+		if (__lborder -> next() == NULL) return false;
+		if (__rborder -> prev() == NULL) return false;
 
-		DList<T>::Unit* checked = (DList<T>::Unit*)&__lborder;
+		DList<T>::Unit* checked = __lborder -> next();
 		if (checked == 0) return false;
 		for (unsigned i = 0; i < size(); ++i)
 		{
 			if (checked -> next() == NULL) 
 				return false;
-			checked = checked -> next();
 			if (checked -> ok() == false)
 				return false;
 			if (checked -> next() == NULL)
@@ -282,8 +293,9 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 				return false;
 			if (checked -> next() -> prev()  != checked)
 				return false;
+			checked = checked -> next();
 		}
-		if (checked != (DList<T>::Unit*)&__rborder)
+		if (checked != (DList<T>::Unit*)__rborder)
 			return false;
 		return true;
 	}

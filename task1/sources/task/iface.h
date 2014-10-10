@@ -3,6 +3,8 @@
  * Interface of a programming task
  */
 #include "../Utils/utils_iface.h"
+#include "exception.h"
+#include "messages.h"
 
 /* namespaces import */
 using namespace Utils;
@@ -58,8 +60,8 @@ private:
         
 	
 		unsigned	__size;
-		BeginUnit	__lborder;
-		EndUnit		__rborder;
+		BeginUnit*	__lborder;
+		EndUnit*	__rborder;
 		
 		bool		__is_in(const Unit* searched);
 		
@@ -87,6 +89,8 @@ private:
 
 		friend void		DList<T>::set_next(Unit* setting, Unit* new_ptr);
 		friend void		DList<T>::set_prev(Unit* setting, Unit* new_ptr);
+
+
 	private:
 					
 		bool		__empty;
@@ -96,14 +100,14 @@ private:
 	};
 
 	template<class T>
-	class DList<T>::BeginUnit: private Unit
+	class DList<T>::BeginUnit: public Unit
 	{        
 	public:
 		
 		friend		DList<T>::Unit::Unit();
 		friend		DList<T>::Unit::~Unit();
+		
 
-		Unit*		next();
 					BeginUnit();
 				   ~BeginUnit();
 		virtual bool ok();
@@ -111,18 +115,16 @@ private:
 		friend void DList<T>::set_next(Unit* setting, Unit* new_ptr);
 
 	private:
-		Unit const*	__prev;
-		Unit*		__next;
 	};
 
 	template<class T>
-	class DList<T>::EndUnit: private Unit
+	class DList<T>::EndUnit: public Unit
 	{        
 	public:
 		
 		friend		DList<T>::Unit::Unit();
 		friend		DList<T>::Unit::~Unit();
-		Unit*		prev();
+
 					EndUnit();
 				   ~EndUnit();
 		virtual bool ok();
@@ -130,8 +132,6 @@ private:
 		friend void DList<T>::set_prev(Unit* setting, Unit* new_ptr);
 
 	private:
-		Unit*		__prev;
-		Unit const* __next;
 	};
 
 
