@@ -45,12 +45,21 @@ namespace Task
             void set_prev (Unit *u); // Set u as the previos unit in list
             T& val();               // Get the reference to the unit's value
         private:
-        // ---- Implementation routines ----
-
         // ---- Data involved in the implementation ----
             T data;
             Unit *next_u;
             Unit *prev_u;
+        };
+        //
+        // Error processing
+        //
+        class Error: public std::exception
+        {
+            public:
+                Error(const char* m){messege=m;}
+                virtual const char* what() const throw(){return messege;}
+            private:
+                const char* messege;
         };
 
         // ---- Public interface of DList ----
@@ -71,6 +80,9 @@ namespace Task
         bool empty();          // Check if list is empty. Returns true if empty, false otherwise
         unsigned size();       // Get the number of units in the list
         void reverse();        // Reverse the order of units in the list
+
+        void dump();    //prints all the list to std
+
 private:
         // ---- The internal implementation routines ----
 

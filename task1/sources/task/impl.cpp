@@ -11,34 +11,35 @@ namespace Task
         DList<int> list;
         list.push_back(5);
         list.push_back(10);
+        list.push_front(-1);
         Unit *u = list.first();
-        
-        UTEST_CHECK( utest_p, u);
-        UTEST_CHECK( utest_p, list.size() == 2);
 
+        UTEST_CHECK( utest_p, u);
+        UTEST_CHECK( utest_p, list.size() == 3);
         int& f = u->val();
         f = 15;
-        
+
         int sum = 0;
         for ( Unit* e = list.first (); e!= 0; e = e->next() )
         {
             sum += e->val();
         }
 
-        UTEST_CHECK( utest_p, sum == 25);
+        UTEST_CHECK( utest_p, sum == 30);
 
         u = list.first();
+        list.pop_back();
 
         UTEST_CHECK( utest_p, u->next() == list.last() );
         UTEST_CHECK( utest_p, u->val() == 15);
 
         Unit * last = list.erase( u);
 
-        UTEST_CHECK( utest_p, last->next() == 0); 
+        UTEST_CHECK( utest_p, last->next() == 0);
         UTEST_CHECK( utest_p, last->prev() == 0);
         UTEST_CHECK( utest_p, last == list.first());
         UTEST_CHECK( utest_p, last == list.last());
-        
+
         // Test clear
         list.clear();
 
@@ -47,22 +48,39 @@ namespace Task
         UTEST_CHECK( utest_p, list.first() == 0);
         UTEST_CHECK( utest_p, list.last() == 0);
 
+
         //--- Test insert and reverse
         list.push_front( 10);// list: 10
         list.push_front( 20);// list: 20 10
         list.push_front( 40);// list: 40 20 10
-        
+
         u= list.first()->next();
         list.insert( u, 30); // list: 40 30 20 10
-        
+
         list.reverse(); // list: 10 20 30 40
 
         UTEST_CHECK( utest_p, list.first()->val() == 10);
         UTEST_CHECK( utest_p, list.first()->next()->val() == 20);
         UTEST_CHECK( utest_p, list.first()->next()->next()->val() == 30);
-        
+
         UTEST_CHECK( utest_p, list.last()->val() == 40);
-    
+
+        list.pop_back();
+        list.pop_front();
+        //list 20 30
+
+
+        list.reverse();//30 20
+
+        UTEST_CHECK( utest_p, list.first()->val() == 30);
+        UTEST_CHECK( utest_p, list.first()->next()->val() == 20);
+
+        list.push_front(-100);
+        u=list.erase(list.first()->next());
+
+        UTEST_CHECK( utest_p, list.size() == 2);
+        UTEST_CHECK( utest_p, u == list.last());
+
 
         return utest_p->result();
     }
