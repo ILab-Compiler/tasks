@@ -75,6 +75,7 @@
   <ItemGroup>
     <ClInclude Include="exception.h" />
     <ClInclude Include="iface.h" />
+    <ClInclude Include="iv_tests.h" />
     <ClInclude Include="list_impl.h" />
     <ClInclude Include="messages.h" />
     <ClInclude Include="unit_impl.h" />
