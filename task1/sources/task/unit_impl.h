@@ -45,16 +45,14 @@ namespace Task
 	typename DList<T>::Unit*
 	DList<T>::Unit::next()
 	{
-		if (&__next != (DList<T>::Unit*)(&__rborder))
-			return __next;
+		return __next;
 	}
 
 	template <class T>
 	typename DList<T>::Unit*
 	DList<T>::Unit::prev()
 	{
-		if (&__prev != (DList<T>::Unit*)(&__lborder))
-			return __prev;
+		return __prev;
 	}
 
 	template <class T>
@@ -64,6 +62,8 @@ namespace Task
 		RT_ASSERT(__val != NULL, NO_VALUE_IN_OBJ);
 		return *(__val);
 	}
+
+	
 
 	template <class T>
 	void
@@ -99,61 +99,8 @@ namespace Task
 			return false;
 		if (!__empty && !__val)
 			return false;
-		if (!__prev || !__next)
-			return false;
 		return true;
 	}
 
-
-	template <class T>
-	DList<T>::BeginUnit::BeginUnit():
-	DList<T>::Unit()
-	{}
-
-	template <class T>
-	DList<T>::EndUnit::EndUnit():
-	DList<T>::Unit()
-	{}
-
-	template <class T>
-	DList<T>::BeginUnit::~BeginUnit()
-	{};
-
-	template <class T>
-	DList<T>::EndUnit::~EndUnit()
-	{};
-/*
-	template <class T>
-	typename DList<T>::Unit*
-	DList<T>::BeginUnit::next()
-	{
-		return __next;
-	}
-
-	template <class T>
-	typename DList<T>::Unit*
-	DList<T>::EndUnit::prev()
-	{
-		return __prev;
-	}
-*/
-	template <class T>
-	bool
-	DList<T>::BeginUnit::ok()
-	{
-		if (next() == NULL)
-			return false;
-		return true;
-	}
-
-	template <class T>
-	bool
-	DList<T>::EndUnit::ok()
-	{
-		if (prev() == NULL)
-			return false;
-		return true;
-	
-	}
 
 };

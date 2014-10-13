@@ -45,6 +45,7 @@ namespace Task
         Unit*		last();  
         void		set_next(Unit* setting, Unit* new_ptr);
 		void		set_prev(Unit* setting, Unit* new_ptr);
+		friend void swap(Unit** ptr1, Unit** ptr2);
 
         Unit*		erase (Unit* u);
         void		clear();  
@@ -60,11 +61,13 @@ private:
         
 	
 		unsigned	__size;
-		BeginUnit*	__lborder;
-		EndUnit*	__rborder;
-		
+		Unit*		__lborder;
+		Unit*		__rborder;
+		void		__init(const T& val);
+
 		bool		__is_in(const Unit* searched);
-		
+		void		__swap_next_prev(Unit* u);
+        
         
        
     };
@@ -82,6 +85,7 @@ private:
 		Unit*		next();
 		Unit*		prev();
 		T&			val();
+		friend void swap(Unit** ptr1, Unit** ptr2);
 			
 		void		 dump();
 		void		 dump(FILE* stream);
@@ -89,8 +93,10 @@ private:
 
 		friend void		DList<T>::set_next(Unit* setting, Unit* new_ptr);
 		friend void		DList<T>::set_prev(Unit* setting, Unit* new_ptr);
-
-
+		friend void		DList<T>::__swap_next_prev(Unit* u);
+        
+	private:
+		
 	private:
 					
 		bool		__empty;
@@ -99,6 +105,7 @@ private:
 		Unit*		__next;
 	};
 
+/*
 	template<class T>
 	class DList<T>::BeginUnit: public Unit
 	{        
@@ -133,7 +140,7 @@ private:
 
 	private:
 	};
-
+*/
 
 };
 

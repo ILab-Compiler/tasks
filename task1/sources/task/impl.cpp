@@ -52,7 +52,8 @@ namespace Task
         list.push_front( 20);// list: 20 10
         list.push_front( 40);// list: 40 20 10
         
-        u= list.first()->next();
+       
+		u= list.first()->next();
         list.insert( u, 30); // list: 40 30 20 10
         
         list.reverse(); // list: 10 20 30 40

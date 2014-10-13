@@ -11,6 +11,7 @@ enum MESSAGE_ID
 	PRECOND_SELF_CHECK_FAILED,
 	POSTCOND_SELF_CHECK_FAILED,
 	EMPTY_LIST,
+	ALREADY_INITED,
 	LAST_ID
 };
 
@@ -24,6 +25,7 @@ const char* const msgs[] =
 	"Precondition self checking failed",
 	"Postcondition self checking failed",
 	"List is already empty",
+	"List has been already initialized",
 	"",
 };
 

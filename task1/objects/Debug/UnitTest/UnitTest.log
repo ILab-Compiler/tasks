@@ -1,4 +1,4 @@
-﻿Сборка начата 13.10.2014 9:54:06.
+﻿Сборка начата 13.10.2014 12:04:16.
      1>Проект "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\sources\UnitTest\UnitTest.vcxproj" в узле 2 (целевые объекты Build).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\UnitTest\\" /Fd"C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\UnitTest\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
@@ -7,9 +7,11 @@
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\bin\utestd.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\bin\utestd.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\bin\utestd.lib" /MACHINE:X86 /SAFESEH "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\UnitTest\main.obj"
          "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\objects\Debug\Utils\Utils.lib"
          "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\objects\Debug\task\task.lib"
+     1>task.lib(exception.obj) : warning LNK4075: эх єўшЄ√трхЄё  "/EDITANDCONTINUE" шч-чр ёяхЎшЇшърЎшш "/SAFESEH"
+     1>task.lib(exception.obj) : warning LNK4099: "vc120.pdb" PDB эх эрщфхэ ё "task.lib(exception.obj)" шыш эр "C:\Users\╚трэ√ўхт\Google ─шёъ\╨рсюЄр\╧ЁюуЁрььшЁютрэшх\╨хяючшЄюЁшш\iLab Compiler task\tasks\task1\bin\vc120.pdb"; ъюьяюэютър юс·хъЄр т√яюыэ хЄё  ъръ яЁш юЄёєЄёЄтшш юЄырфюўэ√ї фрээ√ї
          UnitTest.vcxproj -> C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\bin\utestd.exe
      1>Сборка проекта "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\sources\UnitTest\UnitTest.vcxproj" завершена (целевые объекты Build).
 
 Сборка успешно завершена.
 
-Затраченное время: 00:00:01.01
+Затраченное время: 00:00:00.97

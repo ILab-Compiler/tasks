@@ -15,7 +15,7 @@ namespace Task
 	DList<T>::set_next(Unit* setting, Unit* new_ptr)
 	{
 		RT_ASSERT(setting != NULL, ARG_PTR_NULL);
-		RT_ASSERT(new_ptr != NULL, ARG_PTR_NULL);
+//		RT_ASSERT(new_ptr != NULL, ARG_PTR_NULL);
 
 		setting -> __next = new_ptr;
 	}
@@ -25,7 +25,7 @@ namespace Task
 	DList<T>::set_prev(Unit* setting, Unit* new_ptr)
 	{
 		RT_ASSERT(setting != NULL, ARG_PTR_NULL);
-		RT_ASSERT(new_ptr != NULL, ARG_PTR_NULL);
+//		RT_ASSERT(new_ptr != NULL, ARG_PTR_NULL);
 
 		setting -> __prev = new_ptr;
 	}
@@ -36,51 +36,39 @@ namespace Task
 	__size(0),
 	__lborder(NULL),
 	__rborder(NULL)
-	{
-		__lborder = new BeginUnit();
-		__rborder = new EndUnit();
-		assert(__lborder);
-		assert(__rborder);
-
-		set_next((typename DList<T>::Unit*)__lborder, (typename DList<T>::Unit*)__rborder);
-		set_prev((typename DList<T>::Unit*)__rborder, (typename DList<T>::Unit*)__lborder);
-//		assert(this -> ok());
-	}
+	{}
 
 	template <class T>
 	DList<T>::~DList()
 	{
-		Unit* deleting = __lborder -> next();
-		assert(deleting);
+		Unit* deleting = __lborder;
+		
 
-		while (deleting != (DList<T>::Unit*)__rborder)
+		while (deleting != NULL)
 		{
 			Unit* new_deleting = deleting -> next();
-			assert(new_deleting);
 			delete deleting;
 			deleting = new_deleting;
 		}
 
-		delete __rborder;
-		delete __lborder;
 		__size = 0;
+		__lborder = NULL;
+		__rborder = NULL;
 	}
 
 	template <class T>
 	bool
 	DList<T>::__is_in(const Unit* searched)
 	{
-		Unit* checked = __lborder -> next();
-		assert(checked);
-
-		for (unsigned i = 0; i < __size; ++i)
+		Unit* checked = __lborder;
+		
+//		for (unsigned i = 0; i < __size; ++i)
+		while (checked != NULL)
 		{
-			assert(checked);
 			if (checked == searched)
 				return true;
 			checked = checked -> next();
 		}
-		if (checked == searched) return true;		//__rborder case
 		return false;
 	}
 
@@ -96,13 +84,21 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 		Unit* after = u -> prev();
 		Unit* before = u;
 
-		assert(after -> next() == before);
-		assert(before -> prev() == after);
+//		assert(after -> next() == before);
+//		assert(before -> prev() == after);
 
 		Unit* inserting = new Unit(val);
 		
-		CALL(set_next(after,  inserting), "Setting __next pointer failed");
-		CALL(set_prev(before, inserting), "Setting __prev pointed failed");
+		if (after != NULL)
+		{
+			CALL(set_next(after,  inserting), "Setting __next pointer failed");
+		}
+		
+		if (before != NULL)
+		{
+			CALL(set_prev(before, inserting), "Setting __prev pointed failed");
+		}
+		
 		CALL(set_next(inserting, before), "Setting __next pointer failed");
 		CALL(set_prev(inserting, after) , "Setting __prev pointed failed");
 
@@ -111,25 +107,59 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 		return inserting;
 	}
 
+	template<class T>
+	void
+	DList<T>::__init(const T& val)
+	{
+		RT_ASSERT(	__lborder == 0 && 
+					__rborder == 0 && 
+					__size	  == 0,
+					ALREADY_INITED);
+		Unit* u = new Unit(val);
+		assert(u);
+
+		__lborder = u;
+		__rborder = u;
+		__size++;
+	}
+
 	
 	template <class T>
 	void
 	DList<T>::push_front(const T& val)
 	{
-		DList<T>::Unit* needed_ptr = (DList<T>::Unit*)(__rborder);
-//		CALL(insert(__lborder -> next(), val), "Inserting first element failed");
-		insert(needed_ptr, val);
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		if (__size > 0)
+		{
+			Unit* u = new Unit(val);
+			assert(u);
+			CALL(set_prev(__lborder, u),   "Failed to set pointers");
+			CALL(set_next(u, __lborder), "Failed to set pointers");
+			__lborder = u;
+			__size++;
+		}
+		else
+		{
+		CALL(__init(val), "Initialization of list failed");
+		}
 	}
 
 	template <class T>
 	void
 	DList<T>::push_back(const T& val)
 	{
-		DList<T>::Unit* needed_ptr = __lborder -> next();
-//		CALL(insert(__lborder -> next(), val), "Inserting first element failed");
-		insert(needed_ptr, val);
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		if (__size > 0)
+		{
+			Unit* u = new Unit(val);
+			assert(u);
+			CALL(set_next(__rborder, u),   "Failed to set pointers");
+			CALL(set_prev(u, __rborder), "Failed to set pointers");
+			__rborder = u;
+			__size++;
+		}
+		else
+		{
+		CALL(__init(val), "Initialization of list failed");
+		}
 	}
 
 
@@ -142,48 +172,57 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 
 		DList<T>::Unit* next_unit = u -> next();
 		DList<T>::Unit* prev_unit = u -> prev();
+		if (prev_unit != NULL)
+		{
 		CALL(set_next(prev_unit, next_unit), "Failed to set pointers");
+		} 
+		else
+		{
+			__lborder = u -> next();
+		}
+
+		if (next_unit != NULL)
+		{
 		CALL(set_prev(next_unit, prev_unit), "Failed to set pointers");
+		}
+		else
+		{
+			__rborder = u -> prev();
+		}
 		__size--;
 
 		delete u;
-		return (next_unit == (DList<T>::Unit*)__rborder)? NULL: next_unit;
+		return next_unit;
 	}
 
 	template <class T>
 	void
 	DList<T>::pop_front()
 	{
-		DList<T>::Unit* erasing = __lborder -> next();
-		RT_ASSERT(erasing != (DList<T>::Unit*)__rborder, EMPTY_LIST);
-		CALL(erase(__lborder -> next()), "Failed to erase first element");
+		RT_ASSERT(__lborder != NULL, EMPTY_LIST);
+		CALL(erase(__lborder), "Failed to erase first element");
 	}
 
 	template <class T>
 	void
 	DList<T>::pop_back()
 	{
-		DList<T>::Unit* erasing = __rborder -> prev();
-		RT_ASSERT(erasing != __lborder, EMPTY_LIST);
-		CALL(erase(erasing), "Failed to erase last element");
+		RT_ASSERT(__rborder != NULL, EMPTY_LIST);
+		CALL(erase(__rborder), "Failed to erase last element");
 	}
 
 	template <class T>
 	typename DList<T>::Unit*
 	DList<T>::first()
 	{
-		RT_ASSERT(ok(), PRECOND_SELF_CHECK_FAILED);
-		if (__size > 0) return __lborder -> next();
-		return NULL;
+		return __lborder;
 	}
 
 	template <class T>
 	typename DList<T>::Unit*
 	DList<T>::last()
 	{
-		RT_ASSERT(ok(), PRECOND_SELF_CHECK_FAILED);
-		if (__size > 0) return __rborder -> prev();
-		return NULL;
+		return __rborder;
 	}
 
 	template <class T>
@@ -198,7 +237,6 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 	bool
 	DList<T>::empty()
 	{
-	//	RT_ASSERT(ok(), PRECOND_SELF_CHECK_FAILED);
 		return (__size == 0)? true: false;
 	}
 
@@ -206,8 +244,18 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 	unsigned
 	DList<T>::size()
 	{
-	//	RT_ASSERT(ok(), PRECOND_SELF_CHECK_FAILED);
 		return __size;
+	}
+
+
+	template <class T>
+	void		
+	DList<T>::__swap_next_prev(Unit* u)
+	{
+		assert(u);
+		Unit* temp = u -> __next;
+		u -> __next = u -> __prev;
+		u -> __prev = temp;
 	}
 
 	template <class T>
@@ -220,10 +268,18 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 		if (__size == 0)
 			return;
 
-		temp = __lborder -> next();
-		CALL(set_next((DList<T>::Unit*)__lborder, __rborder -> prev()),	"Failed setting pointers");
-		CALL(set_prev((DList<T>::Unit*)__rborder, temp),					"Failed setting pointers");
-		
+		temp = __lborder;
+		__lborder = __rborder;
+		__rborder = temp;
+
+		DList<T>::Unit* changing = __lborder;
+
+		while (changing != NULL)
+		{
+			__swap_next_prev(changing);
+			changing = changing -> next();
+		}
+		/*
 		DList<T>::Unit* changing = (DList<T>::Unit*)__lborder;
 
 		for (unsigned i = 0; i < size(); ++i)
@@ -235,6 +291,7 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 			CALL(set_prev(changing, changing -> next()),"Failed setting pointers");
 			CALL(set_next(changing, temp),				"Failed setting pointers");
 		}
+		*/
 		RT_ASSERT(this -> ok(), PRECOND_SELF_CHECK_FAILED);	
 	}
 
@@ -276,26 +333,25 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 	bool
 	DList<T>::ok()
 	{
-		if (__lborder -> next() == NULL) return false;
-		if (__rborder -> prev() == NULL) return false;
-
-		DList<T>::Unit* checked = __lborder -> next();
-		if (checked == 0) return false;
-		for (unsigned i = 0; i < size(); ++i)
+		if ( (__lborder || __rborder) && __size == 0) 
+			return false;
+		if (!(__lborder && __rborder) && __size != 0) 
+			return false;
+		if (__size == 0) 
+			return true;
+		
+		DList<T>::Unit* checked = __lborder;
+		for (unsigned i = 0; i < __size; ++i)
 		{
-			if (checked -> next() == NULL) 
-				return false;
 			if (checked -> ok() == false)
 				return false;
-			if (checked -> next() == NULL)
+			if (checked -> prev() && checked -> prev() -> next() != checked)
 				return false;
-			if (checked -> prev() -> next() != checked)
-				return false;
-			if (checked -> next() -> prev()  != checked)
+			if (checked -> next() && checked -> next() -> prev() != checked)
 				return false;
 			checked = checked -> next();
 		}
-		if (checked != (DList<T>::Unit*)__rborder)
+		if (checked != NULL)
 			return false;
 		return true;
 	}
