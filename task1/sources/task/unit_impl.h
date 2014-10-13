@@ -77,8 +77,8 @@ namespace Task
 						"__prev = [%08x]\n"
 						"__next = [%08x]\n",
 						this,
-						(__empty)? "TRUE": "FALSE",
 						(ok())? "OK" : "BAD",
+						(__empty)? "TRUE": "FALSE",
 						__val,
 						__prev,
 						__next);

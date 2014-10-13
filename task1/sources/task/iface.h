@@ -1,3 +1,5 @@
+#ifndef _IFACE_HEADER
+#define _IFACE_HEADER
 /**
  * @file: task/iface.h 
  * Interface of a programming task
@@ -150,3 +152,6 @@ private:
 	#include "list_impl.h"
 	#include "unit_impl.h"
 
+
+
+#endif

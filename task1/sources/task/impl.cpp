@@ -64,7 +64,8 @@ namespace Task
         
         UTEST_CHECK( utest_p, list.last()->val() == 40);
     
-
-        return utest_p->result();
+#include "iv_tests.h"
+        
+		return utest_p->result();
     }
 };

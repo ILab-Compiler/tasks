@@ -310,7 +310,7 @@ DList<T>::insert(typename DList<T>::Unit* u, const T& val)
 						__size,
 						__lborder,
 						__rborder);
-		DList<T>::Unit* printing = __lborder -> next();
+		DList<T>::Unit* printing = __lborder;
 		for (unsigned i = 0; i < __size; ++i)
 		{
 			assert(printing);
