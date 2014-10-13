@@ -75,10 +75,10 @@ namespace Task
 
 		for (unsigned i = 0; i < __size; ++i)
 		{
-			checked = checked -> next();
 			assert(checked);
 			if (checked == searched)
 				return true;
+			checked = checked -> next();
 		}
 		if (checked == searched) return true;		//__rborder case
 		return false;

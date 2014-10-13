@@ -45,14 +45,16 @@ namespace Task
 	typename DList<T>::Unit*
 	DList<T>::Unit::next()
 	{
-		return __next;
+		if (&__next != (DList<T>::Unit*)(&__rborder))
+			return __next;
 	}
 
 	template <class T>
 	typename DList<T>::Unit*
 	DList<T>::Unit::prev()
 	{
-		return __prev;
+		if (&__prev != (DList<T>::Unit*)(&__lborder))
+			return __prev;
 	}
 
 	template <class T>

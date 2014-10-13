@@ -1,19 +1,31 @@
-﻿Сборка начата 10.10.2014 3:58:53.
-     1>Проект "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\sources\task\task.vcxproj" в узле 2 (целевые объекты Rebuild).
+﻿Сборка начата 13.10.2014 9:54:04.
+     1>Проект "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\sources\task\task.vcxproj" в узле 2 (целевые объекты Build).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\task\\" /Fd"C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\task\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt exception.cpp impl.cpp main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\task\\" /Fd"C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\task\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt impl.cpp main.cpp
          main.cpp
+     1>c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\unit_impl.h(48): error C2327: Task::DList<int>::__rborder: не является именем типа, статическим членом или перечислителем
+                 c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\unit_impl.h(47): при компиляции функции-члена "Task::DList<int>::Unit *Task::DList<int>::Unit::next(void)" класса шаблон
+                 c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\list_impl.h(53): см. ссылку на создание экземпляров функции шаблон при компиляции "Task::DList<int>::Unit *Task::DList<int>::Unit::next(void)"
+                 c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\iface.h(104): см. ссылку на создание экземпляров класса шаблон при компиляции "Task::DList<int>::Unit"
+                 c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\list_impl.h(40): см. ссылку на создание экземпляров класса шаблон при компиляции "Task::DList<int>::BeginUnit"
+                 c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\list_impl.h(35): при компиляции функции-члена "Task::DList<int>::DList(void)" класса шаблон
+                 c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\main.cpp(25): см. ссылку на создание экземпляров функции шаблон при компиляции "Task::DList<int>::DList(void)"
+                 c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\main.cpp(25): см. ссылку на создание экземпляров класса шаблон при компиляции "Task::DList<int>"
+     1>c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\unit_impl.h(48): error C2065: __rborder: необъявленный идентификатор
          impl.cpp
      1>c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\impl.cpp(16): warning C4800: Task::Unit *: принудительно задано логическое значение "true" или "false" (предупреждение о производительности)
-         exception.cpp
+     1>c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\unit_impl.h(48): error C2327: Task::DList<int>::__rborder: не является именем типа, статическим членом или перечислителем
+                 c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\unit_impl.h(47): при компиляции функции-члена "Task::DList<int>::Unit *Task::DList<int>::Unit::next(void)" класса шаблон
+                 c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\impl.cpp(23): см. ссылку на создание экземпляров функции шаблон при компиляции "Task::DList<int>::Unit *Task::DList<int>::Unit::next(void)"
+                 c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\impl.cpp(19): см. ссылку на создание экземпляров класса шаблон при компиляции "Task::DList<int>::Unit"
+     1>c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\unit_impl.h(48): error C2065: __rborder: необъявленный идентификатор
+     1>c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\unit_impl.h(56): error C2327: Task::DList<int>::__lborder: не является именем типа, статическим членом или перечислителем
+                 c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\unit_impl.h(55): при компиляции функции-члена "Task::DList<int>::Unit *Task::DList<int>::Unit::prev(void)" класса шаблон
+                 c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\impl.cpp(38): см. ссылку на создание экземпляров функции шаблон при компиляции "Task::DList<int>::Unit *Task::DList<int>::Unit::prev(void)"
+     1>c:\users\иванычев\google диск\работа\программирование\репозитории\ilab compiler task\tasks\task1\sources\task\unit_impl.h(56): error C2065: __lborder: необъявленный идентификатор
          Создание кода...
-       Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\task\task.lib" /NOLOGO "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\task\exception.obj"
-         "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\task\impl.obj"
-         "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\task\main.obj"
-         task.vcxproj -> C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\task\task.lib
-     1>Сборка проекта "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\sources\task\task.vcxproj" завершена (целевые объекты Rebuild).
+     1>Сборка проекта "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\sources\task\task.vcxproj" завершена (целевые объекты Build) с ошибкой.
 
-Сборка успешно завершена.
+Ошибка сборки.
 
-Затраченное время: 00:00:02.70
+Затраченное время: 00:00:01.42
