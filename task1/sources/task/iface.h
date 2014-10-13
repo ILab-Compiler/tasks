@@ -1,8 +1,10 @@
 #ifndef _IFACE_HEADER
 #define _IFACE_HEADER
 /**
- * @file: task/iface.h 
- * Interface of a programming task
+ * @file: 	task/iface.h 
+ * @author	Sergey Ivanychev, DCAM MIPT
+ * 
+ * @brief	Descriptions of DList<> and DList<>::Unit classes 
  */
 #include "../Utils/utils_iface.h"
 #include "exception.h"
@@ -22,20 +24,25 @@ using namespace Utils;
 #endif
 
 
+
 namespace Task
 {
-
+/**
+ * @brief   DList is the template list class we are implementing.
+ * @details There are some necessary methods added, such as ok(), dump(), swap()
+ * 
+ */
     template <class T> class DList
     {
     public:
 
-        class		Unit;
-		class		BeginUnit;
-		class		EndUnit;
+	class		Unit;
+	class		BeginUnit;
+	class		EndUnit;
         
         
-					DList(); 
-				   ~DList();
+			DList(); 
+		       ~DList();
 
         void		push_front (const T& val);
         void		pop_front();
@@ -46,8 +53,8 @@ namespace Task
         Unit*		first(); 
         Unit*		last();  
         void		set_next(Unit* setting, Unit* new_ptr);
-		void		set_prev(Unit* setting, Unit* new_ptr);
-		friend void swap(Unit** ptr1, Unit** ptr2);
+	void		set_prev(Unit* setting, Unit* new_ptr);
+	friend void swap(Unit** ptr1, Unit** ptr2);
 
         Unit*		erase (Unit* u);
         void		clear();  
@@ -55,20 +62,18 @@ namespace Task
         unsigned	size();      
         void		reverse();
 //	Some extra nesessary features
-		void		dump(FILE* stream);
-		void		dump();
-		bool		ok();
-
+	void		dump(FILE* stream);
+	void		dump();
+	bool		ok();
 private:
         
 	
-		unsigned	__size;
-		Unit*		__lborder;
-		Unit*		__rborder;
-		void		__init(const T& val);
-
-		bool		__is_in(const Unit* searched);
-		void		__swap_next_prev(Unit* u);
+	unsigned	__size;
+	Unit*		__lborder;
+	Unit*		__rborder;
+	void		__init(const T& val);
+	bool		__is_in(const Unit* searched);
+	void		__swap_next_prev(Unit* u);
         
         
        
@@ -79,79 +84,35 @@ private:
 	template<class T>
 	class DList<T>::Unit
 	{
-	public:
+public:
 
-					Unit(const T& val);
-					Unit();
-					~Unit();
-		Unit*		next();
-		Unit*		prev();
-		T&			val();
-		friend void swap(Unit** ptr1, Unit** ptr2);
+			Unit(const T& val);
+			Unit();
+			~Unit();
+	Unit*		next();
+	Unit*		prev();
+	T&		val();
+	friend void 	swap(Unit** ptr1, Unit** ptr2);
 			
-		void		 dump();
-		void		 dump(FILE* stream);
-		virtual bool ok();
+	void		dump();
+	void		dump(FILE* stream);
+	virtual bool 	ok();
 
-		friend void		DList<T>::set_next(Unit* setting, Unit* new_ptr);
-		friend void		DList<T>::set_prev(Unit* setting, Unit* new_ptr);
-		friend void		DList<T>::__swap_next_prev(Unit* u);
-        
-	private:
-		
-	private:
-					
-		bool		__empty;
-		T*			__val;
-		Unit*		__prev;
-		Unit*		__next;
-	};
+	friend void	DList<T>::set_next(Unit* setting, Unit* new_ptr);
+	friend void	DList<T>::set_prev(Unit* setting, Unit* new_ptr);
+	friend void	DList<T>::__swap_next_prev(Unit* u);
+private:
+				
+	bool		__empty;
+	T*		__val;
+	Unit*		__prev;
+	Unit*		__next;
+};
 
-/*
-	template<class T>
-	class DList<T>::BeginUnit: public Unit
-	{        
-	public:
-		
-		friend		DList<T>::Unit::Unit();
-		friend		DList<T>::Unit::~Unit();
-		
-
-					BeginUnit();
-				   ~BeginUnit();
-		virtual bool ok();
-
-		friend void DList<T>::set_next(Unit* setting, Unit* new_ptr);
-
-	private:
-	};
-
-	template<class T>
-	class DList<T>::EndUnit: public Unit
-	{        
-	public:
-		
-		friend		DList<T>::Unit::Unit();
-		friend		DList<T>::Unit::~Unit();
-
-					EndUnit();
-				   ~EndUnit();
-		virtual bool ok();
-
-		friend void DList<T>::set_prev(Unit* setting, Unit* new_ptr);
-
-	private:
-	};
-*/
 
 };
 
-// Since we have defined list as a template - we should implement the solution in a header
-// But to keep interface clean we've separated the implementation into list_impl.h header
-
 	#include "list_impl.h"
 	#include "unit_impl.h"
-
-
 
 #endif
