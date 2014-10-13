@@ -30,7 +30,7 @@ DList<T>::Unit::Unit(const T& val):
 Unit()
 {
 	CALL(__val = new T(val), "Copying failed");
-	RT_ASSERT(__val != NULL, ARG_OBJ_COPY_FAIL).
+	RT_ASSERT(__val != NULL, ARG_OBJ_COPY_FAIL);
 	__empty = false;
 }
 

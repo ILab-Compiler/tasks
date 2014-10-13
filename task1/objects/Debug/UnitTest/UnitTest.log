@@ -1,4 +1,4 @@
-﻿Сборка начата 13.10.2014 17:27:37.
+﻿Сборка начата 13.10.2014 17:39:02.
      1>Проект "C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\sources\UnitTest\UnitTest.vcxproj" в узле 2 (целевые объекты Rebuild).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\UnitTest\\" /Fd"C:\Users\Иванычев\Google Диск\Работа\Программирование\Репозитории\iLab Compiler task\tasks\task1\\objects\Debug\UnitTest\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
@@ -13,4 +13,4 @@
 
 Сборка успешно завершена.
 
-Затраченное время: 00:00:01.56
+Затраченное время: 00:00:01.53
