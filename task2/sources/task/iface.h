@@ -36,6 +36,17 @@ namespace Task
 
         class Error: public std::exception
         {
+		public:
+			Error(const char* error_text)
+			{
+				text(error_text);
+			}
+			const char* what()
+			{
+				return text.c_str();
+			}
+		private:
+			std::string text;
         };
 
 
@@ -46,8 +57,10 @@ namespace Task
         {
         public:
             //---- Iterator types ----
-            class pred_iterator;// iterator for node's predecessor edges 
-            class succ_iterator;// iterator for node's successor edges 
+			typedef typename list<reference_wrapper<NodeT>>::iterator pred_iterator;
+			typedef typename list<reference_wrapper<NodeT>>::iterator succ_iterator;
+//            class pred_iterator;// iterator for node's predecessor edges 
+//            class succ_iterator;// iterator for node's successor edges 
 
             pred_iterator preds_begin(); // Get iterator to the first predecessor edge
             pred_iterator preds_end();   // Get end iterator for the predecessors
@@ -73,6 +86,13 @@ namespace Task
             Node(const Node &n);
             
             // ---- The internal implementation routines ----
+			UId uniq_num;
+			Graph& link_to_graph;
+			typename list<NodeT>::iterator iter_to_itself_in_the_store;
+			list <reference_wrapper<NodeT>> list_of_preds_ref;
+			list <typename list<reference_wrapper<NodeT >>::iterator> list_of_iterators_of_this_node_in_preds_lists;
+			list <reference_wrapper<NodeT>> list_of_succs_ref;
+			list <typename list<reference_wrapper<NodeT>>::iterator> list_of_iterators_of_this_node_in_succs_lists;
 
             // ---- The data involved in the implementation ----
         };
@@ -96,14 +116,20 @@ namespace Task
             Edge();
             Edge( const Edge &e);
         // ---- The internal implementation routines ----
-
+			NodeT& ref_to_pred;
+			NodeT& ref_to_succ;
+			Graph& ref_to_graph;
+			UId uniq_num;
+			typename list<EdgeT>::iterator iter_to_itself_in_the_store;
         // ---- The data involved in the implementation ----
     };
 
     public:
     // ---- Graph interface ----
-        class node_iterator; // Iterator for the graph's nodes
-        class edge_iterator; // Iterator for the graph's edges
+		typedef typename list<NodeT>::iterator node_iterator;
+		typedef typename list<NodeT>::iterator edge_iterator;
+//        class node_iterator; // Iterator for the graph's nodes
+//        class edge_iterator; // Iterator for the graph's edges
                
         node_iterator nodes_begin(); // Get the iterator to the first node
         node_iterator nodes_end();   // Get the end iterator for the nodes
@@ -123,7 +149,11 @@ namespace Task
         virtual ~Graph(); // Destructor, deletes all nodes and edges
     private:
         // ---- The internal implementation routines ----
-
+		UInt32 counter;
+		UInt32 nodes_amount;
+		UInt32 edges_amount;
+		list <NodeT> list_of_nodes;
+		list <EdgeT> list_of_edges;
         // ---- The data involved in the implementation ----
     };
 
